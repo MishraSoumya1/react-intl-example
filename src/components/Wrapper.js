@@ -1,13 +1,13 @@
 import React, { createContext, useState } from "react";
 import { IntlProvider } from "react-intl";
 
-import english from "../languages/en-GB.json";
-
 export const AppContext = createContext();
 
 const Wrapper = (props) => {
   const [locale, setLocale] = useState(navigator.language);
-  const [messages, setMessages] = useState(english);
+  const [messages, setMessages] = useState(
+    require(`../languages/${locale}.json`)
+  );
 
   const setLang = (selectedLang) => {
     let lang = selectedLang;

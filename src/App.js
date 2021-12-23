@@ -3,7 +3,7 @@ import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import logo from "./logo.svg";
 import "./App.css";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { AppContext } from "./components/Wrapper";
 
 const options = [
@@ -11,11 +11,24 @@ const options = [
   { value: "en-GB", label: "English" },
   { value: "es-MX", label: "Spanish" },
 ];
-
-function App() {
+//          <FormattedMessage id="app.content" defaultMessage={`Learn React`} />
+function App(props) {
   const { setLang, locale } = useContext(AppContext);
   const defaultOption = options[0];
+  const intl = useIntl();
   console.log("Selected locale", locale);
+  console.log(intl);
+  const learnReact = intl.formatMessage({
+    id: "app.content",
+    defaultMessage: "Learn React",
+  });
+  const channelPlug = intl.formatMessage(
+    {
+      id: "app.channel.plug",
+      defaultMessage: "Code written by Soumya",
+    },
+    { channelName: `Asmita` }
+  );
   return (
     <div className="App">
       <header className="App-header">
@@ -45,14 +58,15 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <FormattedMessage id="app.content" defaultMessage={`Learn React`} />
+          {learnReact}
         </a>
         <p>
-          <FormattedMessage
+          {/* <FormattedMessage
             id="app.channel.plug"
             defaultMessage={`Code written by Soumya`}
             values={{ channelName: `Asmita` }}
-          />
+          /> */}
+          {channelPlug}
         </p>
       </header>
     </div>
